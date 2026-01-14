@@ -1,0 +1,8 @@
+import React from 'react'
+
+export async function GET() {
+    return Response.json({
+        status: 200,
+        message: 'api running'
+  })
+}
