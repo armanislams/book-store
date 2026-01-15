@@ -1,9 +1,16 @@
 "use client";
 
+import { postUser } from "@/actions/server/auth";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function RegisterPage() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const callbackUrl = params.get("callbackUrl") || "/";
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -17,10 +24,26 @@ export default function RegisterPage() {
       password: formData.get("password"),
     };
 
-    // 🔴 connect your register logic here
-    console.log(user);
+    const result = await postUser(user)
+    console.log(result);
+    if (result.message === 'user exist') {
+      Swal.fire('Error', 'User Exist with this email, please login', 'error')
+    } else if (result.acknowledged) {
+      const result = await signIn("credentials", {
+        email: form.email,
+        password: form.password,
+        redirect: false,
+        callbackUrl: callbackUrl,
+      })
+      if (result.ok) {
+        Swal.fire("Success", "Registered successfully", "success");
+        router.push(callbackUrl);
+      }
+    } else {
+      Swal.fire("Error", "Sorry something went wrong", "error");
+    }
 
-    setTimeout(() => setLoading(false), 1000);
+     setLoading(false)
   };
 
   return (

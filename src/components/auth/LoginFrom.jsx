@@ -1,16 +1,42 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const callback = params.get("callbackUrl") || "/";
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
+    });
+    if (!result.ok) {
+      Swal.fire(
+        "Error",
+        "Email password not Matched . Try Google Login / Register",
+        "error"
+      );
+    } else {
+      Swal.fire("Success", "Welcome to Boi-Poka", "success");
+      router.push(callback);
+    }
 
-    setTimeout(() => setLoading(false), 1000);
+   setLoading(false)
   };
 
   return (
@@ -30,6 +56,7 @@ export default function LoginPage() {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="you@example.com"
               className="input input-bordered w-full"
               required
@@ -41,6 +68,7 @@ export default function LoginPage() {
               <span className="label-text">Password</span>
             </label>
             <input
+              name="password"
               type="password"
               placeholder="••••••••"
               className="input input-bordered w-full"
