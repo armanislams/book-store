@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { GoogleBtn } from "./GoogleBtn";
 
 export default function LoginPage() {
   const params = useSearchParams();
@@ -91,10 +92,10 @@ export default function LoginPage() {
         </form>
 
         {/* Divider */}
-        <div className="divider my-6">OR</div>
+        {/* <div className="divider my-6">OR</div> */}
 
         {/* Google */}
-        <button className="btn btn-outline w-full">Continue with Google</button>
+        {/* <GoogleBtn/> */}
 
         {/* Register */}
         <p className="text-center text-sm mt-6">
