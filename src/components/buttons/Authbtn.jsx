@@ -17,7 +17,7 @@ const AuthButtons = () => {
         <>
           {" "}
           <Link href={"/login"}>
-            <button className="btn btn-primary btn-outline">Login</button>
+            <button className="btn btn-primary">Login</button>
           </Link>
         </>
       )}

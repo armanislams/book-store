@@ -1,5 +1,6 @@
 import bookimg from "@/assets/books.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
 const Banner = () => {
   return (
@@ -15,7 +16,7 @@ const Banner = () => {
           <p className="py-6">
             Checkout our store for new listed books from al over the world
           </p>
-          <button className="btn btn-primary">Get Started not fixed</button>
+          <Link href={'/books'} className="btn btn-primary">Get All Books</Link>
         </div>
       </div>
     </div>
