@@ -1,11 +1,15 @@
 "use client";
 
+import { PostBooks } from "@/actions/server/books";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function AddBookForm() {
     const {data} = useSession()
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,12 +31,23 @@ export default function AddBookForm() {
       uploadedBy :data.user.email
     };
 
-      
-        await fetch("/api/books", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(bookData),
-        })
+    // await fetch("/api/books", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(bookData),
+    // })
+      const result = await PostBooks(bookData)
+      if (result.acknowledged) {
+          Swal.fire('Success', 'Your book has been added succesfully', 'success')
+          router.push('/books')
+      } else {
+                    Swal.fire(
+                      "Error",
+                      "Something went wrong,Your book could not be added",
+                      "error"
+                    );
+
+      }
 
 
       ////
@@ -71,7 +86,7 @@ export default function AddBookForm() {
         <input
           name="image"
           type="url"
-          placeholder="Image URL"
+          placeholder="Image URL from imgbb or unsplash"
           className="input input-bordered w-full"
           required
         />
