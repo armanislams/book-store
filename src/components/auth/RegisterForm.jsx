@@ -26,7 +26,7 @@ export default function RegisterPage() {
     };
 
     const result = await postUser(user)
-    console.log(result);
+    // console.log(result);
     if (result.message === 'user exist') {
       Swal.fire('Error', 'User Exist with this email, please login', 'error')
     } else if (result.acknowledged) {

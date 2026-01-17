@@ -48,7 +48,7 @@ export default function LoginPage() {
       redirect: false,
       callbackUrl: params.get("callbackUrl") || "/",
     });
-    console.log(result);
+    // console.log(result);
     
     if (!result.ok) {
       Swal.fire(

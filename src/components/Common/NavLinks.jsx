@@ -6,7 +6,7 @@ import React from "react";
 export default function NavLinks() {
     const { data } = useSession();
     const isLoggedIn = Boolean(data?.user)
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     
     
   return (

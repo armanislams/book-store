@@ -12,7 +12,7 @@ export const authOptions = {
         // password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
+        // console.log(credentials);
 
         const user = await loginUser({
           email: credentials.email,
@@ -55,7 +55,7 @@ export const authOptions = {
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("account data in token", account);
+      // console.log("account data in token", account);
       if (user) {
         if (account.provider == "google") {
           const dbUser = await dbConnect(collections.USERS).findOne({
