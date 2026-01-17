@@ -12,3 +12,11 @@ export const getBookDetails = async (id) => {
   const result = await dbConnect(collections.BOOKS).findOne(query)
   return { ...result, _id: result._id.toString() }
 }
+
+export const PostBooks = async (payload) => {
+   const result = await dbConnect(collections.BOOKS).insertOne(payload);
+   return {
+     ...result,
+     insertedId: result.insertedId?.toString(),
+   };
+}

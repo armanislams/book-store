@@ -11,7 +11,7 @@ import { GoogleBtn } from "./GoogleBtn";
 export default function RegisterPage() {
   const params = useSearchParams();
   const router = useRouter();
-  const callbackUrl = params.get("callbackUrl") || "/";
+  const callbackUrl = params.get("callbackUrl") || "/books";
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -20,9 +20,9 @@ export default function RegisterPage() {
 
     const formData = new FormData(e.currentTarget);
     const user = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
+      name: formData.get("name").toLocaleLowerCase(),
+      email: formData.get("email").toLocaleLowerCase(),
+      password: formData.get("password").toLocaleLowerCase(),
     };
 
     const result = await postUser(user)

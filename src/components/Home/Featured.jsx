@@ -12,7 +12,7 @@ export default async function Featured() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5 py-5">
         {filteredBooks.map((book) => (
           <BookCard
-            key={book.bookId}
+            key={book._id}
             book={{ ...book, _id: book._id.toString() }}
           />
         ))}

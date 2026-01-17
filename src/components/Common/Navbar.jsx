@@ -1,15 +1,10 @@
 import Link from 'next/link';
 import React from 'react'
 import AuthButtons from '../buttons/Authbtn';
+import NavLinks from './NavLinks';
 
 export default function Navbar() {
-  const links = (
-    <>
-      <li>
-        <Link href={"/books"}>All Books</Link>
-      </li>
-    </>
-  );
+  
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -35,14 +30,14 @@ export default function Navbar() {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-           {links}
+           <NavLinks/>
           </ul>
         </div>
         <Link href={'/'} className="btn btn-ghost text-xl">Boi-Poka</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-         {links}
+        <NavLinks/>
         </ul>
       </div>
       <div className="navbar-end">

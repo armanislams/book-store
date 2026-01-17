@@ -10,20 +10,20 @@ import { GoogleBtn } from "./GoogleBtn";
 export default function LoginPage() {
   const params = useSearchParams();
   const router = useRouter();
-  const callback = params.get("callbackUrl") || "/";
+  const callback = params.get("callbackUrl") || "/books";
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    const email = form.email.value.toLocaleLowerCase();
+    const password = form.password.value.toLocaleLowerCase();
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
-      callbackUrl: params.get("callbackUrl") || "/",
+      callbackUrl: callback,
     });
     if (!result.ok) {
       Swal.fire(
@@ -38,6 +38,31 @@ export default function LoginPage() {
 
    setLoading(false)
   };
+  const handleDemoLogin = async () => {
+    setLoading(true)
+    const email = process.env.NEXT_PUBLIC_DEMO_USER_EMAIL;
+    const password = process.env.NEXT_PUBLIC_DEMO_USER_PASS;
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
+    });
+    console.log(result);
+    
+    if (!result.ok) {
+      Swal.fire(
+        "Error",
+        "Email password not Matched . Try Google Login / Register",
+        "error"
+      );
+    } else {
+      Swal.fire("Success", "Welcome to Boi-Poka", "success");
+      router.push(callback);
+    }
+
+   setLoading(false)
+  }
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-base-200 px-4">
@@ -90,6 +115,9 @@ export default function LoginPage() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        <div>
+          <button onClick={handleDemoLogin} className="btn w-full text-base my-3 btn-primary">Demo Login</button>
+        </div>
 
         {/* Divider */}
         {/* <div className="divider my-6">OR</div> */}
