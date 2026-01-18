@@ -113,11 +113,11 @@ export default function RegisterPage() {
         </form>
 
         {/* Divider */}
-        {/* <div className="divider my-6">OR</div> */}
+        <div className="divider my-6">OR</div>
 
         {/* Social signup */}
 
-        {/* <GoogleBtn /> */}
+        <GoogleBtn />
         
         {/* Login link */}
         <p className="text-center text-sm mt-6">

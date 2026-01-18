@@ -7,6 +7,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { GoogleBtn } from "./GoogleBtn";
 
+
 export default function LoginPage() {
   const params = useSearchParams();
   const router = useRouter();
@@ -116,14 +117,14 @@ export default function LoginPage() {
           </button>
         </form>
         <div>
-          <button onClick={handleDemoLogin} className="btn w-full text-base my-3 btn-primary">Demo Login</button>
+          <button onClick={handleDemoLogin} disabled={loading} className="btn w-full text-base my-3 btn-primary">Demo Login</button>
         </div>
 
         {/* Divider */}
-        {/* <div className="divider my-6">OR</div> */}
+        <div className="divider my-6">OR</div>
 
         {/* Google */}
-        {/* <GoogleBtn/> */}
+        <GoogleBtn/>
 
         {/* Register */}
         <p className="text-center text-sm mt-6">
